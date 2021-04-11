@@ -12,11 +12,16 @@ var aside = document.querySelector('.shadow')
 var index = 0
 
 
+searchBtn.addEventListener('click', clearDuplicates)
 
+searchInput.addEventListener('keydown', function(event){
+    if (event.key === "Enter"){
+        clearDuplicates();
+    }
+})
 function clearDuplicates(){
     for (let index = 0; index < 6; index++) {
         var deleteImage = document.querySelector('img')
-        var deleteSearchHistory = document.querySelector('.city')
         if (deleteImage === null){
 
         }else{
@@ -43,20 +48,20 @@ function callForLatandLong(){
     var latLonUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=408b21a6ea25095ac89b5511c4e63503&units=metric"
     fetch(latLonUrl).then(function (response){
         if (response.status !== 200){
-            alert('Please enter a valid city name')
+            alert('Please enter a valid city name');
+            searchInput.value = "";
         }
+
         return response.json()
     }).then(function(latLon){
         var lat = latLon.coord.lat;
         var lon = latLon.coord.lon;
-        forecast.textContent = cityName+"'s 5-Day-Forecast";
-        figure.children[0].textContent = cityName+"'s" + " - " + currentDay;          
+        forecast.textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s 5-Day-Forecast";
+        figure.children[0].textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s" + " - " + currentDay;          
             var citySearchHistory = document.createElement('button')
             citySearchHistory.classList.add('city')
-            citySearchHistory.textContent = cityName
+            citySearchHistory.textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)
             aside.append(citySearchHistory)
-
-
             citySearchHistory.addEventListener('click', clearImagesFromSearchHistoryClick)
         getApi(lat, lon)
     })
@@ -70,8 +75,8 @@ function historyCallForLatandLong(event){
     }).then(function(latLon){
         var lat = latLon.coord.lat;
         var lon = latLon.coord.lon;
-        forecast.textContent = cityName+"'s 5-Day-Forecast";
-        figure.children[0].textContent = cityName+"'s" + " - " + currentDay;
+        forecast.textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s 5-Day-Forecast";
+        figure.children[0].textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s" + " - " + currentDay;
         getApi(lat, lon)
     })
 }
@@ -82,6 +87,8 @@ function getApi(lat, lon){
     fetch(weatherUrl).then(function (response){
         return response.json()
     }).then(function(weatherInfo){
+        searchInput.value = ""
+        console.log()
         console.log(weatherInfo)
         //CREATION OF CONTENT FOR MAIN SECION
         mainCity.children[0].textContent = "Temp: " + Math.round(weatherInfo.current.temp) + "°C";
@@ -120,5 +127,5 @@ function getApi(lat, lon){
     }) 
 }
 
-searchBtn.addEventListener('click', clearDuplicates)
+
 
