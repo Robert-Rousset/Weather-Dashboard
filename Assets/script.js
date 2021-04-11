@@ -9,10 +9,27 @@ var section = document.querySelector('section')
 var card = document.querySelector('.card')
 var forecast = document.querySelector('.forecast')
 var aside = document.querySelector('.shadow')
-var index = 0
+var clearBtn = document.querySelector('.clear')
+var number = 0
+
+//TO MAKE THE LOCAL STORAGE APPEAR A MAX OF 8 TIMES
+for (let index = 0; index < 8; index++) {
+    var eachButtonsValue = localStorage.getItem(index)
+    var citySearchHistory = document.createElement('button')
+    citySearchHistory.classList.add('city')
+    if(eachButtonsValue !== null){
+        citySearchHistory.textContent = eachButtonsValue.charAt(0).toLocaleUpperCase()+eachButtonsValue.slice(1)
+        aside.append(citySearchHistory)
+        citySearchHistory.addEventListener('click', clearImagesFromSearchHistoryClick)
+    }
+}
+
+
 
 
 searchBtn.addEventListener('click', clearDuplicates)
+
+clearBtn.addEventListener('click', clearListFunction)
 
 searchInput.addEventListener('keydown', function(event){
     if (event.key === "Enter"){
@@ -62,12 +79,13 @@ function callForLatandLong(){
             citySearchHistory.classList.add('city')
             citySearchHistory.textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)
             aside.append(citySearchHistory)
+            console.log(aside.children)
+            localStorage.setItem(number, cityName)
             citySearchHistory.addEventListener('click', clearImagesFromSearchHistoryClick)
         getApi(lat, lon)
     })
 }
 function historyCallForLatandLong(event){
-    console.log(event)
     var cityName = event.target.innerHTML
     var latLonUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=408b21a6ea25095ac89b5511c4e63503&units=metric"
     fetch(latLonUrl).then(function (response){
@@ -88,13 +106,34 @@ function getApi(lat, lon){
         return response.json()
     }).then(function(weatherInfo){
         searchInput.value = ""
-        console.log()
-        console.log(weatherInfo)
         //CREATION OF CONTENT FOR MAIN SECION
         mainCity.children[0].textContent = "Temp: " + Math.round(weatherInfo.current.temp) + "°C";
         mainCity.children[1].textContent = "Wind Speed: " + weatherInfo.current.wind_speed + "km/h";
         mainCity.children[2].textContent = "Humidity: " + weatherInfo.current.humidity + "%";
         mainCity.children[3].textContent = "UV Index: " + weatherInfo.current.uvi;
+        var uvi = document.querySelector('.UVI')
+        var uviValue =weatherInfo.current.uvi
+        if(uviValue>7){
+            uvi.classList.add('gnarly')
+        }
+        if(uviValue<8 && uviValue>5){
+            uvi.classList.add('high')
+            uvi.classList.remove('medium')
+            uvi.classList.remove('low')
+            uvi.classList.remove('gnarly')
+        }
+        if(uviValue<6 && uviValue>2){
+            uvi.classList.add('medium')
+            uvi.classList.remove('high')
+            uvi.classList.remove('low')
+            uvi.classList.remove('gnarly')
+        }
+        if (uviValue<3){
+            uvi.classList.add('low')
+            uvi.classList.remove('medium')
+            uvi.classList.remove('high')
+            uvi.classList.remove('gnarly')
+        }
  
         var src = document.querySelector('.mainImage');
         var weather = weatherInfo.current.weather
@@ -119,13 +158,14 @@ function getApi(lat, lon){
             var img = document.createElement('img')
             img.src = "http://openweathermap.org/img/wn/"+ imageIcon + "@2x.png"
             image.appendChild(img)
-            console.log(img)
         }         
-
-        //CREATING THE SEARCH HISTORY
-
+        number++;
     }) 
 }
 
+function clearListFunction(){
+    var deleteButtons = document.querySelector('.city')
+    deleteButtons.remove()
 
+}
 

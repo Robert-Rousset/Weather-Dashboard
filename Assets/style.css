@@ -98,11 +98,10 @@ h4 {
 aside {
     display: flex;
     width: 20%;
-    height: 80vh;
+    height: 75vh;
     background: linear-gradient(to right, rgb(57, 131, 201)0%,  rgb(57, 131, 201,.8) 20%,  rgb(57, 131, 201,.6) 35%,  rgb(57, 131, 201) 100%);
-    border-bottom-left-radius: 40px;
     border-top-left-radius: 40px;
-    border-bottom:  3px rgb(57, 131, 201) solid;
+    border-bottom-left-radius: 40px;
     backdrop-filter: blur(3px);
     height: auto;
 }
@@ -253,6 +252,41 @@ li {
 
 .mainHeader{
     width: 500px;
+}
+
+.low{
+    width: 150px;
+    background-color: rgb(0, 173, 14,.5);
+    padding-left: 20px;
+}
+.medium{
+    width: 150px;
+    background-color: rgba(255, 255, 0, 0.8);
+    padding-left: 20px;
+}
+.high{
+    width: 150px;
+    background-color: rgb(255, 0, 0,.5);
+    padding-left: 20px;
+}
+.gnarly{
+    width: 150px;
+    background-color: #800080,.5;
+    padding-left: 20px;
+}
+.clear{
+    margin-top: -60px;
+    padding-right: 30px;
+    display: flex;
+    width: 20%;
+    background: linear-gradient(to top, rgba(0, 162, 255, 0.1)0%,  rgba(0, 132, 255, 0.4) 20%, rgba(0, 183, 255, 0.2) 35%,  rgba(0, 174, 255, 0.1)100%);
+    border-bottom-left-radius: 40px;
+    border-bottom:  3px rgb(57, 131, 201) solid;
+    backdrop-filter: blur(3px);
+    height: 60px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (max-width: 992px) {
