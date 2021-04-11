@@ -18,7 +18,6 @@ header {
     background: linear-gradient(to right, rgb(57, 131, 201)0%,  rgb(57, 131, 201,.6) 60%,  rgb(57, 131, 201,.2) 80%,  rgb(57, 131, 201,.9) 100%);
     height: 90px;
     display: flex;
-    align-items: flex-start;
     justify-content: center;
     border-top-right-radius: 40px; 
     width: 100%;
@@ -54,9 +53,12 @@ h3{
     border-bottom: var(--border);
     height: 40px;
     border-top-right-radius: 30px;
+    line-height: 30px;
 
 }
 h4 {
+    height: 50px;
+    background-color:  rgb(57, 131, 201,.7);
     padding-top: 20px;
     padding-bottom: 10px;
     font-size: 15px;
@@ -91,13 +93,10 @@ h4 {
     height: 80vh;
     border-bottom-left-radius: 50px;
     border-top-left-radius: 50px;
-
 }
 
 aside {
     display: flex;
-    align-items: center;
-    flex-direction: column;
     width: 20%;
     height: 80vh;
     background: linear-gradient(to right, rgb(57, 131, 201)0%,  rgb(57, 131, 201,.8) 20%,  rgb(57, 131, 201,.6) 35%,  rgb(57, 131, 201) 100%);
@@ -118,6 +117,7 @@ textarea {
     padding-left: 5px;
     overflow: hidden;
     margin-top: -120px;
+    font-family:Arial, Helvetica, sans-serif
 
 }
 .search {
@@ -148,7 +148,13 @@ button {
     padding-left: 20px;
     color: rgb(255, 255, 255);
 }
-
+.city{
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    padding: 5px;
+    padding-left: 20px;
+}
 .city:hover {
     border-top-left-radius: 35px;
     border-bottom-left-radius: 35px;
@@ -156,10 +162,8 @@ button {
     background: rgba(255, 255, 255);
     padding-left: 30px;
     color: rgb(45, 46, 48);
-
-}
-.city:hover{
     border-right: 10px rgb(57, 131, 201) solid;
+
 }
 article {
     width: 80%;
