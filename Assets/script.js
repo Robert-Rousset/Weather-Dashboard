@@ -1,4 +1,3 @@
-
 var currentDay = moment().format("dddd, Do of MMMM, YYYY")
 
 var mainCity = document.querySelector('.mainCity')
@@ -10,6 +9,7 @@ var card = document.querySelector('.card')
 var forecast = document.querySelector('.forecast')
 var aside = document.querySelector('.shadow')
 var clearBtn = document.querySelector('.clear')
+var linebreak = document.createElement('br')
 var number = 0
 
 //TO MAKE THE LOCAL STORAGE APPEAR A MAX OF 8 TIMES
@@ -23,9 +23,6 @@ for (let index = 0; index < 8; index++) {
         citySearchHistory.addEventListener('click', clearImagesFromSearchHistoryClick)
     }
 }
-
-
-
 
 searchBtn.addEventListener('click', clearDuplicates)
 
@@ -58,8 +55,6 @@ function clearImagesFromSearchHistoryClick(event){
     }
     historyCallForLatandLong(event);
 }
-
-
 function callForLatandLong(){
     var cityName = searchInput.value
     var latLonUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=408b21a6ea25095ac89b5511c4e63503&units=metric"
@@ -68,18 +63,16 @@ function callForLatandLong(){
             alert('Please enter a valid city name');
             searchInput.value = "";
         }
-
         return response.json()
     }).then(function(latLon){
         var lat = latLon.coord.lat;
         var lon = latLon.coord.lon;
         forecast.textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s 5-Day-Forecast";
-        figure.children[0].textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s" + " - " + currentDay;          
+        figure.children[0].textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s Weather - " + currentDay;          
             var citySearchHistory = document.createElement('button')
             citySearchHistory.classList.add('city')
             citySearchHistory.textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)
             aside.append(citySearchHistory)
-            console.log(aside.children)
             localStorage.setItem(number, cityName)
             citySearchHistory.addEventListener('click', clearImagesFromSearchHistoryClick)
         getApi(lat, lon)
@@ -94,11 +87,10 @@ function historyCallForLatandLong(event){
         var lat = latLon.coord.lat;
         var lon = latLon.coord.lon;
         forecast.textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s 5-Day-Forecast";
-        figure.children[0].textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s" + " - " + currentDay;
+        figure.children[0].textContent = cityName.charAt(0).toLocaleUpperCase()+cityName.slice(1)+"'s Weather - " + currentDay;
         getApi(lat, lon)
     })
 }
-
 function getApi(lat, lon){
     var weatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly&appid=408b21a6ea25095ac89b5511c4e63503&units=metric"
 
@@ -107,10 +99,10 @@ function getApi(lat, lon){
     }).then(function(weatherInfo){
         searchInput.value = ""
         //CREATION OF CONTENT FOR MAIN SECION
-        mainCity.children[0].textContent = "Temp: " + Math.round(weatherInfo.current.temp) + "°C";
+        mainCity.children[0].textContent = "Temperature: " + Math.round(weatherInfo.current.temp) + "°C";
         mainCity.children[1].textContent = "Wind Speed: " + weatherInfo.current.wind_speed + "km/h";
-        mainCity.children[2].textContent = "Humidity: " + weatherInfo.current.humidity + "%";
-        mainCity.children[3].textContent = "UV Index: " + weatherInfo.current.uvi;
+        mainCity.children[3].textContent = "Humidity: " + weatherInfo.current.humidity + "%";
+        mainCity.children[4].textContent = "UV Index: " + weatherInfo.current.uvi;
         var uvi = document.querySelector('.UVI')
         var uviValue =weatherInfo.current.uvi
         if(uviValue>7){
@@ -150,7 +142,7 @@ function getApi(lat, lon){
             DayTempWindHumidity.children[1].textContent = "Min Temp: " + Math.round(weatherInfoDaily[i].temp.min) + "°C";
             DayTempWindHumidity.children[2].textContent = "Wind Speed: " + weatherInfoDaily[i].wind_speed + "km/h";
             DayTempWindHumidity.children[3].textContent = "Humidity: " + weatherInfoDaily[i].humidity + "%";
-            var day = moment().add(i, 'days').format('dddd')
+            var day = moment().add(i, 'days').format('DD/MM/YYYY')
             rightCard.children[0].textContent = day
             var imageIcon = weatherInfoDaily[i].weather[0].icon
             var image = DayTempWindHumidity.children[4]
@@ -162,10 +154,7 @@ function getApi(lat, lon){
         number++;
     }) 
 }
-
 function clearListFunction(){
     var deleteButtons = document.querySelector('.city')
     deleteButtons.remove()
-
 }
-
