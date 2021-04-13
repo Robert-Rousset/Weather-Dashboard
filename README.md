@@ -1,90 +1,15 @@
-# 06 Server-Side APIs: Weather Dashboard
+# 06 Server-Side APIs
 
-## Your Task
+## Weather Dashboard
 
-Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
+This task felt a bit easier to complete than previous assignments and this allowed me to enjoy stylizing and adding some extra functionality. I feel I have improved slightly with my javascript-thinking and ability to solve problems with a little more ease. The initial stages were still a little daunting, figuring out how the Open Weather API works and how to call it, but once I got going it was quite easy to use. 
 
-Use the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) to retrieve weather data for cities. Read through the documentation for setup and usage instructions. You will use `localStorage` to store any persistent data.
+At the beginning I had a little trouble realizing how to know the latitude/longitute of every city, so I started by getting the information to show for just Perth's lat and lon typed into the URL. Once I got all information to display properly for Perth I then tried to figure out how to get the lat/lon. I then came across the API call with the city name, this then became easy to substitute the searchInput value into the URL and worked for every city. This was working fine until I reaslized that the UV Index properties were not available in this API call. It then fell into place that the lat/lon were available information in this URL and so I could then use this information to substitute into the original API call. 
 
-## User Story
+I then added things like having the search history buttons first letter being a capital regardless of what the userInput is. I then added a clear button to get rid of previous search histories (although couldn't figure out how to remove singular localStorage keys as localStorage.clear() would remove ALL local storage), and also couldn't figure out how to remove ALL buttons at once. I had the searchInput area clear after each input even if the search was incorrect. This was to stop duplicates of buttons being created (duplicates can still be created but hopefully less likely).
 
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
+I am quite happy with my effort, however I wish I had figured out how to solve those last few issues to make the whole experience a little more polished and clean. I feel that the presentation of the dashboard is quite nice, however the text and information shown looks a bit bland and unprofessional. 
 
-## Acceptance Criteria
+Here is the link to my deployed application: https://robert-rousset.github.io/Weather-Dashboard/
 
-```
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-```
-
-## Mock-Up
-
-The following image shows the web application's appearance and functionality:
-
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/Images/06-server-side-apis-homework-demo.png)
-
-## Grading Requirements
-
-This homework is graded based on the following criteria: 
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the above acceptance criteria plus the following:
-
-    * Uses the OpenWeather API to retrieve weather data.
-
-    * Uses `localStorage` to store persistent data.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the homework instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a readme describing the project.
-
-- - -
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+And a screenshot ![Screenshot](./Assets/Images/WeatherDashboard.png)

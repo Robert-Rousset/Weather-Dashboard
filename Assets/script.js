@@ -28,11 +28,14 @@ searchBtn.addEventListener('click', clearDuplicates)
 
 clearBtn.addEventListener('click', clearListFunction)
 
+//TO LISTEN FOR 'ENTER' ON THE SEARCH
 searchInput.addEventListener('keydown', function(event){
     if (event.key === "Enter"){
         clearDuplicates();
     }
 })
+
+//TO CLEAR ANY DUPLICATE IMAGES THAT WERE SHOWING
 function clearDuplicates(){
     for (let index = 0; index < 6; index++) {
         var deleteImage = document.querySelector('img')
@@ -44,6 +47,8 @@ function clearDuplicates(){
     }
     callForLatandLong();
 }
+
+//SAME AS ABOVE FUNCTION BUT FROM THE SEARCH HISTORY CLICK EVENT
 function clearImagesFromSearchHistoryClick(event){
     for (let index = 0; index < 6; index++) {
         var deleteImage = document.querySelector('img')
@@ -55,6 +60,8 @@ function clearImagesFromSearchHistoryClick(event){
     }
     historyCallForLatandLong(event);
 }
+
+//TO FIND THE LATITUTE AND LONGITUDE OF EACH CITY + CREATE A SEARCH HISTORY BUTTON WITH THE CITY NAME
 function callForLatandLong(){
     var cityName = searchInput.value
     var latLonUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=408b21a6ea25095ac89b5511c4e63503&units=metric"
@@ -78,6 +85,8 @@ function callForLatandLong(){
         getApi(lat, lon)
     })
 }
+
+//SAME FUNCTION AS ABOVE BUT IF CLICKED ON THE SEARCH HISTORY BUTTON
 function historyCallForLatandLong(event){
     var cityName = event.target.innerHTML
     var latLonUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=408b21a6ea25095ac89b5511c4e63503&units=metric"
@@ -91,6 +100,8 @@ function historyCallForLatandLong(event){
         getApi(lat, lon)
     })
 }
+
+//CREATION OF ALL OTHER CONTENT, ADDING CLASSES TO UV INDEX ELEMENT
 function getApi(lat, lon){
     var weatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly&appid=408b21a6ea25095ac89b5511c4e63503&units=metric"
 
@@ -104,7 +115,7 @@ function getApi(lat, lon){
         mainCity.children[3].textContent = "Humidity: " + weatherInfo.current.humidity + "%";
         mainCity.children[4].textContent = "UV Index: " + weatherInfo.current.uvi;
         var uvi = document.querySelector('.UVI')
-        var uviValue =weatherInfo.current.uvi
+        var uviValue = weatherInfo.current.uvi
         if(uviValue>7){
             uvi.classList.add('gnarly')
         }
@@ -150,11 +161,15 @@ function getApi(lat, lon){
             var img = document.createElement('img')
             img.src = "http://openweathermap.org/img/wn/"+ imageIcon + "@2x.png"
             image.appendChild(img)
-        }         
+        } 
+        //THIS WAS TO MAKE SURE THE LOCAL STORAGE SAVES EACH BUTTON AS A DIFFERENT KEY        
         number++;
     }) 
 }
+
+//CLEAR BUTTON, ONLY DELETES LAST BUTTON, COULDNT FIGURE OUT HOW TO ONLY DELETE THE SAME LOCAL STORAGE AS THE BUTTON
 function clearListFunction(){
     var deleteButtons = document.querySelector('.city')
     deleteButtons.remove()
+    localStorage.clear()
 }
